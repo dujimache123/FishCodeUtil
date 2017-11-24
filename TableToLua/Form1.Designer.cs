@@ -33,6 +33,7 @@
             this.textBox_luaTableName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button_generate = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBox_sourceFilePath
@@ -78,11 +79,22 @@
             this.button_generate.UseVisualStyleBackColor = true;
             this.button_generate.Click += new System.EventHandler(this.button_generate_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(13, 89);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(60, 16);
+            this.checkBox1.TabIndex = 5;
+            this.checkBox1.Text = "format";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 262);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button_generate);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox_luaTableName);
@@ -102,6 +114,7 @@
         private System.Windows.Forms.TextBox textBox_luaTableName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_generate;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

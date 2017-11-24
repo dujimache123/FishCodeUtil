@@ -26,6 +26,7 @@ namespace TableToLua
             {
                 string path = dialog.FileName;
                 this.textBox_sourceFilePath.Text = path;
+                this.textBox_luaTableName.Text = Path.GetFileNameWithoutExtension(dialog.FileName);
             }
         }
 
@@ -36,7 +37,7 @@ namespace TableToLua
                 MessageBox.Show("Lua Table Name 不能为空!!!");
                 return;
             }
-            string luaStr = TableToLua.getInstance().toLua(this.textBox_luaTableName.Text, this.textBox_sourceFilePath.Text);
+            string luaStr = TableToLua.getInstance().toLua(this.textBox_luaTableName.Text, this.textBox_sourceFilePath.Text, this.checkBox1.Checked);
             string luaTableName = this.textBox_luaTableName.Text + ".lua";
             FileStream fs = new FileStream(luaTableName, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);

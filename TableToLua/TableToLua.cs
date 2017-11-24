@@ -23,7 +23,7 @@ namespace TableToLua
             return mInstance;
         }
 
-        public string toLua(string luaTableName,string tabFilePath)
+        public string toLua(string luaTableName,string tabFilePath, bool formatFlag)
         {
             string luaStr = "";
             if (luaTableName.Length <= 0 || tabFilePath.Length <= 0)
@@ -50,6 +50,11 @@ namespace TableToLua
 
 
             luaStr = "local " + luaTableName + " = {\n\trecords = {\n";
+            string formatStr = "";
+            if (true == formatFlag)
+            {
+                formatStr = "\t\t\t";
+            }
 
             //元素
             for (int i = 3; i < lines.Length; i ++ )
@@ -59,6 +64,10 @@ namespace TableToLua
                     continue;
                 }
                 string recordStr = "\t\t{";
+                if (formatFlag)
+                {
+                    recordStr += "\n";
+                }
                 string[] oneline = lines[i].TrimEnd().Split('\t');
                 for (int j = 0; j < oneline.Length; j ++ )
                 {
@@ -66,18 +75,24 @@ namespace TableToLua
                     {
                         continue;
                     }
+                    string back = " ";
+                    if (true == formatFlag)
+                    {
+                        back = "\n";
+                    }
+                    recordStr += formatStr;
                     if ("int" == typeStr[j] || "float" == typeStr[j])
                     {
-                        recordStr = recordStr + keyStr[j] + " = " + oneline[j] + ", ";
+                        recordStr = recordStr + keyStr[j] + " = " + oneline[j] + "," + back;
                     }
                     else if ("string" == typeStr[j])
                     {
-                        recordStr = recordStr + keyStr[j] + " = " + "\"" + oneline[j] + "\"" + ", ";
+                        recordStr = recordStr + keyStr[j] + " = " + "\"" + oneline[j] + "\"" + "," + back;
                     }
                     else if ("ccp" == typeStr[j])
                     {
                         string[] values = oneline[j].Split(',');
-                        recordStr = recordStr + keyStr[j] + " = {x = " + values[0] + ", y = " + values[1] + "}, ";
+                        recordStr = recordStr + keyStr[j] + " = {x = " + values[0] + ", y = " + values[1] + "}," + back;
                     }
                     else if (typeStr[j].Contains("array"))
                     {
@@ -101,11 +116,14 @@ namespace TableToLua
                             }
                         }
                         recordStr = recordStr.TrimEnd(',', ' ');
-                        recordStr = recordStr +  "}" + ",";
+                        recordStr = recordStr + "}" + "," + back;
                     }
                 }
                 recordStr = recordStr.TrimEnd(',', ' ');
-                recordStr += "},\n";
+                if (formatFlag)
+                    recordStr += "\t\t},\n";
+                else
+                    recordStr += "},\n";
                 luaStr += recordStr;
             }
 
